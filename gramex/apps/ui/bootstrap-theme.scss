@@ -730,3 +730,16 @@ $ripple-opacity: .2;
 .z-9 {
   z-index: 9000 !important;
 }
+
+// - transform (rotate) classes
+$multiples : 1,2,3,4,5,6,7;
+
+@each $var in $multiples {
+  $deg : $var * 45;
+  .rotate-#{$deg} {
+    transform: rotate(unquote($deg + 'deg'))
+  }
+  .rotate-n#{$deg} {
+    transform: rotate(-(unquote($deg + 'deg')))
+  }
+}
