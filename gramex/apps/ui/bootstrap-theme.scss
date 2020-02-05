@@ -740,3 +740,36 @@ $multiples : 1,2,3,4,5,6,7;
     transform: rotate(unquote($deg + 'deg'))
   }
 }
+
+
+//additional properties with numerics not present in bootstrap
+$missing-val: 2,6,10,12,14,18,20; //missing numerics in bootstrap
+$param : 'p' 'padding', 'm' 'margin';
+$dir : 't' 'top', 'b' 'bottom', 'l' 'left', 'r' 'right';
+
+@each $i in $missing-val{
+    $val:unquote($i + 'px'); //property value
+    @each $para in $param{
+        $s : #{nth($para,1)}; //short form of property
+        $f : #{nth($para,2)}; //full form of property
+        .c-#{$s}-#{$i}{
+            #{$f}: $val;
+        }
+        .c-#{$s}x-#{$i}{
+            #{$f}-left: $val;
+            #{$f}-right: $val;
+        }
+        .c-#{$s}y-#{$i}{
+            #{$f}-top: $val;
+            #{$f}-bottom: $val;
+        }
+        @each $d in $dir{
+            .c-#{$s}#{nth($d,1)}-#{$i}{
+                #{$f}-#{nth($d,2)}: $val;
+            }
+        }
+    }
+    .border-radius-#{$i}{
+        border-radius: $val;
+    }
+}
